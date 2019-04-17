@@ -10,6 +10,7 @@ import (
 	"github.com/gochain-io/gochain/v3/accounts/keystore"
 	"github.com/gochain-io/gochain/v3/common"
 	"github.com/gochain-io/gochain/v3/core/types"
+	"github.com/gochain-io/gochain/v3/crypto"
 )
 
 type AccountStore struct {
@@ -80,6 +81,19 @@ func (a *AccountStore) Next(ctx context.Context, node int) (acct *accounts.Accou
 	}
 	err = a.ks.Unlock(*acct, a.pass)
 	return
+}
+
+func (a *AccountStore) NewSeeder(hex string) (*accounts.Account, error) {
+	key, _ := crypto.HexToECDSA(hex)
+	acct, err := a.ks.ImportECDSA(key, a.pass)
+	if err != nil {
+		return nil, err
+	}
+
+	a.acctsMu.Lock()
+	a.addrs = append(a.addrs, acct.Address)
+	a.acctsMu.Unlock()
+	return &acct, a.ks.Unlock(acct, a.pass)
 }
 
 func (a *AccountStore) New(ctx context.Context) (*accounts.Account, error) {

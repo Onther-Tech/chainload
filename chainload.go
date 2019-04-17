@@ -96,7 +96,7 @@ func (c *Chainload) Run() error {
 			log.Printf("Failed to get seeder account\terr=%q\n", err)
 		}
 		if err != nil || acct == nil {
-			acct, err = node.New(ctx)
+			acct, err = node.NewSeeder("b71c71a67e1177ad4e901695e1b4b9ee17ae16c6668d313eac2f96dbcda3f291")
 			if err != nil {
 				log.Printf("Failed to create new seeder account\terr=%q\n", err)
 				continue
