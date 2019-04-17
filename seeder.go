@@ -95,7 +95,7 @@ func (s *Seeder) Run(ctx context.Context, done func()) {
 					old := s.nonce
 					s.transition(seederUpdateNonceState)
 					if !bo.doTimed(ctx, pendingNonceAtTimer, func() (err error) {
-						s.nonce, err = s.PendingNonceAt(ctx, s.acct.Address)
+						s.nonce, err = s.NonceAt(ctx, s.acct.Address, nil)
 						if err != nil {
 							err = fmt.Errorf("failed to get nonce\t%s err=%q", s, err)
 						}
@@ -144,7 +144,7 @@ func (s *Seeder) ensureFunds(ctx context.Context, ensure uint64) (uint64, error)
 	bo := backOff{maxWait: 30 * time.Second, wait: 1 * time.Second}
 	var pb *big.Int
 	if !bo.doTimed(ctx, pendingBalanceAtTimer, func() (err error) {
-		pb, err = s.PendingBalanceAt(ctx, s.acct.Address)
+		pb, err = s.BalanceAt(ctx, s.acct.Address, nil)
 		if err != nil {
 			err = fmt.Errorf("failed to get balance\t%s err=%q", s, err)
 		}
@@ -159,7 +159,7 @@ func (s *Seeder) ensureFunds(ctx context.Context, ensure uint64) (uint64, error)
 	if s.nonce == 0 {
 		old := s.nonce
 		if !bo.doTimed(ctx, pendingNonceAtTimer, func() (err error) {
-			s.nonce, err = s.PendingNonceAt(ctx, s.acct.Address)
+			s.nonce, err = s.NonceAt(ctx, s.acct.Address, nil)
 			if err != nil {
 				err = fmt.Errorf("failed to get nonce\t%s err=%q", s, err)
 			}

@@ -73,7 +73,7 @@ func (s *Sender) assignAcct(ctx context.Context) {
 		}
 	} else {
 		if !bo.doTimed(ctx, pendingNonceAtTimer, func() (err error) {
-			s.nonce, err = s.Client.PendingNonceAt(ctx, s.acct.Address)
+			s.nonce, err = s.Client.NonceAt(ctx, s.acct.Address, nil)
 			if err != nil {
 				err = fmt.Errorf("failed to get nonce\t%s err=%q", s, err)
 			}
@@ -85,7 +85,7 @@ func (s *Sender) assignAcct(ctx context.Context) {
 
 	var pb *big.Int
 	if !bo.doTimed(ctx, pendingBalanceAtTimer, func() (err error) {
-		pb, err = s.PendingBalanceAt(ctx, s.acct.Address)
+		pb, err = s.BalanceAt(ctx, s.acct.Address, nil)
 		if err != nil {
 			err = fmt.Errorf("failed to get sender balance\t%s err=%q", s, err)
 		}
@@ -261,7 +261,7 @@ func (s *Sender) send(ctx context.Context) {
 		old := s.nonce
 		bo := backOff{maxWait: 30 * time.Second, wait: 1 * time.Second}
 		if !bo.doTimed(ctx, pendingNonceAtTimer, func() (err error) {
-			s.nonce, err = s.Client.PendingNonceAt(ctx, s.acct.Address)
+			s.nonce, err = s.Client.NonceAt(ctx, s.acct.Address, nil)
 			if err != nil {
 				err = fmt.Errorf("failed to get nonce\t%s err=%q", s, err)
 			}
