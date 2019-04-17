@@ -30,7 +30,7 @@ func init() {
 	flag.IntVar(&config.Senders, "senders", 0, "total number of concurrent Senders/accounts - defaults to TPS")
 	flag.DurationVar(&config.Cycle, "cycle", 5*time.Minute, "how often to Cycle a sender's account")
 	flag.DurationVar(&config.Duration, "dur", 0, "duration to run - omit for unlimited")
-	flag.StringVar(&config.Password, "pass", "#go@chain42", "passphrase to unlock accounts")
+	flag.StringVar(&config.Password, "pass", "", "passphrase to unlock accounts")
 	flag.Uint64Var(&config.Gas, "gas", 200000, "Gas (approximate)")
 	flag.Uint64Var(&config.Amount, "amount", 10, "tx Amount (approximate)")
 	flag.StringVar(&config.PprofAddr, "pprof", ":6060", "pprof addr")
