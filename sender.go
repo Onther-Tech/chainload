@@ -111,7 +111,7 @@ func (s *Sender) assignAcct(ctx context.Context) {
 		}) {
 			return
 		}
-		if _, err := waitBlocks(ctx, s.Client, 5); err != nil {
+		if _, err := waitBlocks(ctx, s.Client, 0); err != nil {
 			return
 		}
 		log.Printf("Seeded account\t%s seed=%d balance=%d\n", s, amt, amt+bal)
