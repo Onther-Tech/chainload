@@ -29,11 +29,10 @@ func (n *Node) refund(ctx context.Context, acct accounts.Account, nonce uint64, 
 	pendingBalanceAtTimer.UpdateSince(t)
 
 	t = time.Now()
-	gasPrice, err := n.SuggestGasPrice(ctx)
+	gasPrice := big.NewInt(1)
 	if err != nil {
 		return 0, err
 	}
-	suggestGasPriceTimer.UpdateSince(t)
 
 	gas := randBetween(n.gas, 2*n.gas)
 	var amount big.Int

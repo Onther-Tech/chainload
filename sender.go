@@ -220,12 +220,9 @@ func (s *Sender) updateGasPrice(ctx context.Context) {
 
 func (s *Sender) send(ctx context.Context) {
 	recv := s.recv[int(s.nonce)%len(s.recv)]
-	gp := s.gasPrice.Uint64()
-	if rand.Intn(2) == 0 {
-		gp = randBetween(gp, gp*2)
-	}
+	gp := big.NewInt(1)
 	amount := new(big.Int).SetUint64(randBetween(s.amount, 2*s.amount))
-	tx := types.NewTransaction(s.nonce, recv, amount, randBetween(s.gas, 2*s.gas), new(big.Int).SetUint64(gp), nil)
+	tx := types.NewTransaction(s.nonce, recv, amount, randBetween(s.gas, 2*s.gas), gp, nil)
 	t := time.Now()
 	tx, err := s.AccountStore.SignTx(*s.acct, tx)
 	if err != nil {
