@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/gochain-io/chainload"
+	"github.com/onther-tech/chainload"
 )
 
 var version string

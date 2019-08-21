@@ -1,4 +1,4 @@
-module github.com/gochain-io/chainload
+module github.com/onther-tech/chainload
 
 go 1.12
 
