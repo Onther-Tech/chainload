@@ -13,8 +13,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gochain-io/gochain/v3/accounts/keystore"
-	"github.com/gochain-io/gochain/v3/goclient"
+	"github.com/onther-tech/gochain/v3/accounts/keystore"
+	"github.com/onther-tech/gochain/v3/goclient"
 )
 
 type Config struct {
